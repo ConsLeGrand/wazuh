@@ -1,6 +1,6 @@
 ---
 - name: Installer Wazuh Indexer
-  hosts: wazuh_indexer
+  hosts: indexer
   become: true
   tasks:
 
