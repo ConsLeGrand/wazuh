@@ -11,7 +11,7 @@
     
   tasks:
     - name: Sauvegarder le fichier opensearch.yml en opensearch.yml.bkp
-      command: #mv /etc/wazuh-indexer/opensearch.yml /etc/wazuh-indexer/opensearch.yml.bkp#
+      command: "mv /etc/wazuh-indexer/opensearch.yml /etc/wazuh-indexer/opensearch.yml.bkp"
 
     - name: Déployer le fichier indexer.yml avec le nom d'hôte dynamique
       template:
