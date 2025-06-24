@@ -63,7 +63,7 @@
       file:
         path: "{{ certs_dir }}"
         mode: '0500'
-        recurse: no
+        recurse: yes
 
     - name: Appliquer chmod 400 sur tous les fichiers du dossier
       file:
