@@ -5,7 +5,7 @@
   tasks:
 
     - name: Installer coreutils
-      package:
+      ansible.builtin.dnf:
         name: coreutils
         state: present
 
@@ -26,6 +26,6 @@
         state: present
 
     - name: Installer Wazuh Indexer
-      package:
+      ansible.builtin.dnf:
         name: wazuh-indexer
         state: present
