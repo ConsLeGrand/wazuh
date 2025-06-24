@@ -1,0 +1,31 @@
+---
+- name: Installer Wazuh Indexer
+  hosts: wazuh_indexer
+  become: true
+  tasks:
+
+    - name: Installer coreutils
+      package:
+        name: coreutils
+        state: present
+
+    - name: Importer la clé GPG Wazuh
+      rpm_key:
+        key: https://packages.wazuh.com/key/GPG-KEY-WAZUH
+        state: present
+
+    - name: Ajouter le dépôt Wazuh avec yum_repository
+      yum_repository:
+        name: wazuh
+        description: EL-$releasever - Wazuh
+        baseurl: https://packages.wazuh.com/4.x/yum/
+        enabled: yes
+        gpgcheck: yes
+        gpgkey: https://packages.wazuh.com/key/GPG-KEY-WAZUH
+        priority: 1
+        state: present
+
+    - name: Installer Wazuh Indexer
+      package:
+        name: wazuh-indexer
+        state: present
