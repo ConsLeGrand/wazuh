@@ -26,7 +26,11 @@
         src: "{{ local_archive_path }}"
         dest: "{{ remote_archive_path }}"
         mode: '0644'
-
+        
+    - name: var env
+      command: >
+        NODE_NAME={{ ansible_hostname }}
+        
     - name: Créer le dossier des certificats
       file:
         path: "{{ certs_dir }}"
@@ -67,7 +71,7 @@
 
     - name: Appliquer chmod 400 sur tous les fichiers du dossier
       file:
-        path: "{{ certs_dir }}"
+        path: "{{ certs_dir }}/*"
         mode: '0400'
         recurse: yes
 
