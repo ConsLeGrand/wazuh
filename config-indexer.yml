@@ -5,7 +5,7 @@
   vars:
     certs_dir: /etc/wazuh-indexer/certs
     local_archive_path: ./wazuh-certificates.tar
-    remote_archive_path: /tmp/wazuh-certificates.tar
+    remote_archive_path: /root/wazuh-certificates.tar
     certs_archive: /root/wazuh-certificates.tar  # adapte ce chemin si besoin
     node_name: "{{ ansible_hostname }}"  # ou bien une variable personnalisée si nécessaire
     
