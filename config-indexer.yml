@@ -29,7 +29,7 @@
         
     - name: var env
       command: >
-        NODE_NAME={{ ansible_hostname }}
+        export NODE_NAME={{ ansible_hostname }}
         
     - name: Créer le dossier des certificats
       file:
