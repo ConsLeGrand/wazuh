@@ -1,0 +1,34 @@
+---
+- name: Désinstaller Wazuh Agent sur les hôtes Linux
+  hosts: all
+  become: true
+  tasks:
+
+    - name: Arrêter le service Wazuh Agent
+      service:
+        name: wazuh-agent
+        state: stopped
+      ignore_errors: true
+
+    - name: Désactiver le service Wazuh Agent
+      service:
+        name: wazuh-agent
+        enabled: false
+      ignore_errors: true
+
+    - name: Supprimer le paquet wazuh-agent
+      dnf:
+        name: wazuh-agent
+        state: absent
+
+    - name: Supprimer les fichiers de configuration (facultatif mais propre)
+      file:
+        path: /var/ossec
+        state: absent
+      ignore_errors: true
+
+    - name: Supprimer le dossier temporaire utilisé lors de l’installation
+      file:
+        path: /tmp/wazuh
+        state: absent
+      ignore_errors: true
