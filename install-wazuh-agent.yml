@@ -1,0 +1,35 @@
+---
+- name: Installer Wazuh Agent sur les hôtes Linux
+  hosts: all
+  become: true
+  vars:
+    wazuh_agent_url: "https://packages.wazuh.com/4.x/yum/wazuh-agent-4.12.0-1.x86_64.rpm"
+    wazuh_agent_pkg: "wazuh-agent-4.12.0-1.x86_64.rpm"
+    wazuh_manager_ip: "192.168.15.116"
+
+  tasks:
+    - name: Créer un dossier temporaire pour le paquet
+      file:
+        path: /tmp/wazuh
+        state: directory
+        mode: '0755'
+
+    - name: Télécharger le paquet Wazuh Agent
+      get_url:
+        url: "{{ wazuh_agent_url }}"
+        dest: "/tmp/wazuh/{{ wazuh_agent_pkg }}"
+        mode: '0644'
+
+    - name: Installer le paquet Wazuh Agent avec la variable WAZUH_MANAGER
+      command: >
+        rpm -ihv {{ wazuh_agent_pkg }}
+      args:
+        chdir: /tmp/wazuh
+      environment:
+        WAZUH_MANAGER: "{{ wazuh_manager_ip }}"
+
+    - name: Activer et Démarrer le service Wazuh Agent
+      service:
+        name: wazuh-agent
+        enabled: yes
+        state: started
